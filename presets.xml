@@ -1,0 +1,22 @@
+<presets>
+    <preset name="test">
+        <container>
+            <div name="menu" width="100" height="600" x="10" y="20">
+                <ul>
+                    <li>link 1</li>
+                    <li>link 2</li>
+                    <li>link 3</li>
+                    <li>link 4</li>
+                </ul>
+            </div>
+            <div name="menu2" width="100" height="600" x="100" y="200">
+                <ul>
+                    <li>link 1</li>
+                    <li>link 2</li>
+                    <li>link 3</li>
+                    <li>link 4</li>
+                </ul>         
+            </div>
+        </container>
+    </preset>
+</presets>
