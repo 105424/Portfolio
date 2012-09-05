@@ -1,0 +1,36 @@
+.test{
+    border-style:solid;
+    width:100px;
+    height:100px;
+    margin:1px;
+    position:absolute;
+}
+.movable{
+    position:absolute;
+}
+#load{
+    padding-left:2px;
+    border-left-style:solid;
+}
+#save{
+    padding-right:2px;
+    border-right-style:solid;   
+}
+#move{
+    border-top-style:solid;
+    display:block;   
+    text-align:center;
+}
+
+*{ /*dit zorgt er voor dat je niks kan selecteen*/
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+
+   /*
+     Introduced in IE 10.
+     See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+   */
+   -ms-user-select: none;
+   user-select: none;
+}

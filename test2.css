@@ -1,18 +1,19 @@
 @font-face {
     font-family: 'novecento';
 	font-weight:bold;
-	src: local('novecento'), local('novecento'), url('fonts/novecentowide-bold-webfont.woff') format('woff');
-}
+	src: local('novecento'), local('novecento'), url('../fonts/novecentowide-bold-webfont.woff') format('woff');
+	}
 	
 @font-face {
 	font-family: 'novecento';
 	font-weight:normal;
-	src: local('novecento'), local('novecento'), url('fonts/novecentowide-light-webfont.woff') format('woff');
-}
-    
+	src: local('novecento'), local('novecento'), url('../fonts/novecentowide-light-webfont.woff') format('woff');
+	}
+
 .movable{
     position:absolute;
 }
+
 
 *{ /*dit zorgt er voor dat je niks kan selecteen*/
    -moz-user-select: -moz-none;
@@ -27,80 +28,28 @@
    user-select: none;
 }
 
-html{
-    background:#ccc url('img/bg01.gif') top left;
-}
+
+
+
 
 body{
 	color:black;
-}
-#header{
-	background:#ccc url('img/bg02.gif');
-	color:#fff;
-	font-size:33px;
-	line-height:37px;
-    width:100%;
-    
-    position:fixed;
-    top:-1px;
-    left:0px;
-}
-#title{
-    font-family: Helvetica, Calibri, sans-serif;
-	font-weight:bold;
-	color:#fff;
-	letter-spacing:-2px;
-	padding-left:5px;
-	}
-
-#title i{
-	font-family: Helvetica, Calibri, sans-serif;
+    background:#ddd url('img/bg02.gif') repeat top left;
+	margin:0px;
+    font-family: 'novecento' , Helvetica, Calibri, sans-serif;
 	font-weight:normal;
-	font-style:normal;
-    letter-spacing:0px;
-	color:#ddd;
-	}
-
-#nav{
-    float:right;   
+    color:#444;
 }
-#logIn{
-    width:32px;
-    height:32px;
-    background-image: url('img/LogIn.png'); 
-    margin:3px;
+h1,h2,h3,h4{
+    color:black;
+    font-weight:bold;
+}
+body > *{
+    background: #EEE url('img/bg01.gif') repeat top left;
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#subHeader{
-	padding-left:37px;
-	background:#ccc;
-	border-style:groove;
-	border-color:#aaa;
-	border-top-style:solid;
-	border-top-color:#ccc;
-	position:absolute;
-	left:130px;
-	top:156px;
-	width:550px;
-	height:153px;
-}
 #menu{
-	background:#ccc;
 	border-style:groove;
 	border-color:#aaa;
 	width:120px;
@@ -115,7 +64,6 @@ a{
 	text-align:left;
 }
 #submenu{
-	background:#ccc;
 	border-style:groove;
 	border-color:#aaa;
 	position:absolute;
@@ -126,7 +74,6 @@ a{
 	text-align:center;
 }
 #content{
-	background:#ccc;
 	border-style:groove;
 	border-color:#aaa;
 	position:absolute;
@@ -142,7 +89,34 @@ a{
 	max-height:400px;
 	max-width:300px;
 }
-
+#header{
+	padding-left:30px;
+	border-style:groove;
+	border-color:#aaa;
+	position:absolute;
+	left:140px;
+	height:156px;
+	width:690px;
+}
+#logIn{
+	position:absolute;
+	right:0px;
+	top:0px;
+	text-align:right;
+}
+#subHeader{
+    background:#ddd url('bg01.gif') repeat top left;
+	padding-left:37px;
+	border-style:groove;
+	border-color:#aaa;
+	border-top-style:solid;
+	border-top-color:#ccc;
+	position:absolute;
+	left:130px;
+	top:156px;
+	width:550px;
+	height:153px;
+}
 #volgende{
 	position:absolute;
 	right:4px;
@@ -154,7 +128,6 @@ a{
 	top:4x;
 }
 #comments{
-	background:#ccc;
 	border-style:groove;
 	border-color:#aaa;
 	float:bottom;
@@ -169,7 +142,6 @@ a{
 	float:top;
 }
 #sideInfo{
-	background:#ccc;
 	border-style:groove;
 	border-color:#aaa;
 	border-left-style:solid;
@@ -181,7 +153,6 @@ a{
 	width:200px;
 }
 #projectInfo{
-	background:#ccc;
 	border-style:groove;
 	border-color:#aaa;
 	float:left;
@@ -193,7 +164,6 @@ a{
 #socialMedia{
 	position:absolute;
 	top:322px;
-	background:#ccc;
 	border-style:groove;
 	border-color:#aaa;
 	width:103px;
@@ -205,12 +175,12 @@ a{
 	bottom:55px;
 }
 #spreukVanDeDag{
+    background:#ddd url('bg01.gif') repeat top left;
 	position:absolute;
 	top:183px;
 	left:103px;
 	width:128px;
 	height:114px;
-	background:#ccc;
 	border-style:groove;
 	border-color:#aaa;
 	border-left-style:solid;
@@ -219,7 +189,6 @@ a{
 
 /* COMMENTS */
 #commentsContent{
-	background:#ccc;
 	border-style:groove;
 	border-color:#aaa;
 	position:absolute;
@@ -256,7 +225,6 @@ a{
 
 /* Info Pagina */
 #infoContent{
-	background:#ccc;
 	border-style:groove;
 	border-color:#aaa;
 	position:absolute;
