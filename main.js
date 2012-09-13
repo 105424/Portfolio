@@ -1,26 +1,46 @@
 $(document).ready(init);
 var width;
 var height;
-function init()
-{
-    console.log('--init--');
+var mouseX;
+var mouseY;
 
+function init()
+{    
+    console.log('--init--');
+    
     setInterval(function(){
         width = $(window).width();
-        height = $(window).height();
+        height = $(window).height();            
     },10);
-
-    console.log(width);
-    console.log(height);
     
     if (typeof config != 'undefined') parseDivs(config);
     else console.log('config not found');
 
+    $('html').live('mousemove',function(event){
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+        
+        for(var i in divs)
+        {
+            var div = divs[i];           
+            if(mouseX>div.x-3 && mouseX<div.x+3 && mouseY>div.y && mouseY<div.y+$(div.dom).height())
+            {
+                $('html').css('cursor','e-resize');
+            }
+            else
+            {
+                $('html').css('cursor','auto'); 
+            }
+        }
+    });
+    
     $('.movable').live('mousedown', startMove);
     $('#save').live('click', save); //de save functie die het object met de cordinaten gaat opslaan;
     $('#load').live('click', load ); //de save functie die het object met de cordinaten gaat opslaan;       
     
     sideMenu(); // de code van het zij menutje zoveel de animatie als de positionering (jammer genoeg kreeg ik dit niet in css voor elkaar);
+    
+    console.log(divs);
     
 }
 function save(event)
@@ -46,14 +66,15 @@ function load(event)
 }
 function startMove(event)
 {
+    var type = $(this).attr('id');
+    var target = divs[type]; 
+    
+    xOffSet = event.clientX-target.x;
+    yOffSet = event.clientY-target.y;       
+    
     $('html').css('cursor','move');
    
     console.log('----startmove----');
-    var type = $(this).attr('id');
-    target = divs[type]; 
-    
-    xOffSet = event.clientX-target.x;
-    yOffSet = event.clientY-target.y;
     
     $('html').bind('mousemove',function(event){
         target.x = event.pageX-xOffSet;
@@ -79,6 +100,8 @@ var div = function(type,cordinates)
     if($('body').find('#'+type)[0]===undefined) 
     {
         console.log('   div does not exist');
+        delete divs[type];
+        console.log(divs);
         return;
     }
     
@@ -199,9 +222,8 @@ function sideMenu()
         }
     });
     
-    setInterval(function(){
-        
-        top = (height/2)-$(dom).height()+$('#topBar').height();
+    setInterval(function(){   
+        top = (height/2)-$(dom).height()+$('#topBar').height()+37; //37 is de hoogte van de header bar
         left = (width)-$(dom).width()+offSet; // 
         $(dom).css('top', top);
         $(dom).css('left', left);

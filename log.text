@@ -19,9 +19,10 @@ Dit is de Log van mijn portfolio project.
 7-10-2012       1 uur
     Er is nu een side menu die uit de zijkant "slide" als je er op klikt hier komt de save/load/reset te staan. 
 
-13-10-2012      ....
+13-10-2012      3 uur
     de sleep code is zo aangepast dat er rekeing met de begin positie van de muis gehouden wordt. Ook heb ik borders aan het slepen gezet zodat je de divs neit uit het scherm krijgt.
     Ik heb de css tag overflow:hidden aan de html toegevoegd zodat je geen scrolbars meer ziet als je een div een beetje tegen de borer van het scherm plakt. Ik weet nog niet of ik dit hou of er iets anders voor verzin
+    Ik heb een klein begin gemaakt aan de reszise code. maar ik ben er nog neit uit of dat aan elke kant meot gebeuren of alleen rechts boven.
     
 
     
