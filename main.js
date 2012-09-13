@@ -4,18 +4,23 @@ var height;
 function init()
 {
     console.log('--init--');
-    
-    width = $('body').width();
-    height = $('body').height();
+
+    setInterval(function(){
+        width = $(window).width();
+        height = $(window).height();
+    },10);
+
     console.log(width);
     console.log(height);
     
     if (typeof config != 'undefined') parseDivs(config);
     else console.log('config not found');
 
-    $('.movable').live('mousedown', startMove); //did worth uiteindelijk gebruikt
+    $('.movable').live('mousedown', startMove);
     $('#save').live('click', save); //de save functie die het object met de cordinaten gaat opslaan;
-    $('#load').live('click', load ); //de save functie die het object met de cordinaten gaat opslaan;
+    $('#load').live('click', load ); //de save functie die het object met de cordinaten gaat opslaan;       
+    
+    sideMenu(); // de code van het zij menutje zoveel de animatie als de positionering (jammer genoeg kreeg ik dit niet in css voor elkaar);
     
 }
 function save(event)
@@ -45,18 +50,26 @@ function startMove(event)
    
     console.log('----startmove----');
     var type = $(this).attr('id');
-    target = divs[type];
+    target = divs[type]; 
+    
+    xOffSet = event.clientX-target.x;
+    yOffSet = event.clientY-target.y;
+    
+    $('html').bind('mousemove',function(event){
+        target.x = event.pageX-xOffSet;
+        target.y = event.pageY-yOffSet;
+        
+        if(target.y<37) target.y = 37;
+        if(target.x<0) target.x = 0;
+        if(target.y>(height-target.height)) target.y = height-target.height;
+        if(target.x>(width-target.width)) target.x = width-target.width;
+        
+        target.update();
+    });
     
     $('html').mouseup(function(event){
         $('html').css('cursor','auto');
         $('html').unbind('mousemove'); 
-    });
-    
-    $('html').bind('mousemove',function(event){        
-        target.x = event.pageX;
-        target.y = event.pageY;
-        
-        target.update();
     });
 }
 var div = function(type,cordinates)
@@ -70,6 +83,9 @@ var div = function(type,cordinates)
     }
     
     this.dom = $('body').find('#'+type);
+    this.width = $(this.dom).width();
+    this.height = $(this.dom).height();
+    
     
     if(cordinates==='')
     {
@@ -86,10 +102,12 @@ var div = function(type,cordinates)
         
         var cords = cordinates.split(',');
         var calc;
-    
+        console.log('   split:'+cords); 
         if(isNaN(Number(cords[0]))===false) this.x = cords[0];
         else
         {  
+            console.log('   calculating width');
+            
             var cordX = cords[0].split('+');
             if (cordX[1] !== undefined) calc = '+';
             else
@@ -126,8 +144,13 @@ var div = function(type,cordinates)
     $('body').append(this.dom);
     $(this.dom).addClass('movable');
     
-    $(this.dom).css('top',this.y);
-    $(this.dom).css('left',this.x);
+    console.log('this,x:'+this.x);
+    console.log('this.y:'+this.y);
+    
+    $(this.dom).css('top',Number(this.y));
+    $(this.dom).css('left',Number(this.x));
+    
+    console.log($('body').find('#'+type)[0]);
 };
 div.prototype.update = function()
 {
@@ -146,3 +169,67 @@ function parseDivs(toParse)
         divs[type] = new div(type,toParse[type]);
     }   
 }
+
+function sideMenu()
+{
+    var dom = $('body').find('#sideMenu');
+    var top = (height/2)-$(dom).height()+$('#topBar').height();
+    var left = (width)-$(dom).width();
+    var mWidth = $('#sideMenu').width()+2;
+    var offSet = mWidth;
+    
+    $('#sideMenuToggle').css('right', $('#sideMenu').width());
+    
+    $('#sideMenuToggle').click(function(){
+        console.log('sideMenuToggle Click');
+        if(offSet==mWidth)
+        {
+            console.log('offset=72');
+            var temp = setInterval(function(){
+                offSet -= 2;
+                if(offSet===0) clearInterval(temp);
+            },10);
+        }
+        if(offSet===0)
+        {
+            var temp2 = setInterval(function(){
+                offSet += 2;
+                if(offSet==mWidth) clearInterval(temp2);
+            },10);            
+        }
+    });
+    
+    setInterval(function(){
+        
+        top = (height/2)-$(dom).height()+$('#topBar').height();
+        left = (width)-$(dom).width()+offSet; // 
+        $(dom).css('top', top);
+        $(dom).css('left', left);
+    },10);
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

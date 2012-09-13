@@ -5,8 +5,11 @@ function init()
 {
     console.log('--init--');
     
-    width = $('body').width();
-    height = $('body').height();
+    setInterval(function(){
+        width = $(window).width();
+        height = $(window).height();
+    },10);
+
     console.log(width);
     console.log(height);
     
@@ -86,10 +89,12 @@ var div = function(type,cordinates)
         
         var cords = cordinates.split(',');
         var calc;
-    
+        console.log('   split:'+cords); 
         if(isNaN(Number(cords[0]))===false) this.x = cords[0];
         else
         {  
+            console.log('   calculating width');
+            
             var cordX = cords[0].split('+');
             if (cordX[1] !== undefined) calc = '+';
             else
@@ -126,8 +131,13 @@ var div = function(type,cordinates)
     $('body').append(this.dom);
     $(this.dom).addClass('movable');
     
-    $(this.dom).css('top',this.y);
-    $(this.dom).css('left',this.x);
+    console.log('this,x:'+this.x);
+    console.log('this.y:'+this.y);
+    
+    $(this.dom).css('top',Number(this.y));
+    $(this.dom).css('left',Number(this.x));
+    
+    console.log($('body').find('#'+type)[0]);
 };
 div.prototype.update = function()
 {

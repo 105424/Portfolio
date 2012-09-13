@@ -1,7 +1,7 @@
+//leave cordinates empty if they are defined by the css
+
+
 var config = {
-    'submenu':'',
-    'menu':'',
-    'socialMedia':'',
-    'content':'',
-    'comments':'',
-}
+    'example':'x,y',
+    'languages':''
+};
