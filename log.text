@@ -21,8 +21,17 @@ Dit is de Log van mijn portfolio project.
 
 13-10-2012      3 uur
     de sleep code is zo aangepast dat er rekeing met de begin positie van de muis gehouden wordt. Ook heb ik borders aan het slepen gezet zodat je de divs neit uit het scherm krijgt.
-    Ik heb de css tag overflow:hidden aan de html toegevoegd zodat je geen scrolbars meer ziet als je een div een beetje tegen de borer van het scherm plakt. Ik weet nog niet of ik dit hou of er iets anders voor verzin
+    Ik heb de css tag overflow:hidden aan de html toegevoegd zodat je geen scrolbars meer ziet als je een div een beetje tegen de border van het scherm plakt. Ik weet nog niet of ik dit hou of er iets anders voor verzin
     Ik heb een klein begin gemaakt aan de reszise code. maar ik ben er nog neit uit of dat aan elke kant meot gebeuren of alleen rechts boven.
-    
 
+19-10-2012      1 uur
+    ik heb besloten elke kant resizeble te maken maar ik ben nu het probleem tegegekomen dat de muis niet van plaatje verandert als je in de orginele div zit.
+
+24-10-2012      1 uur
+    Het probleem van 19-20 is opgelost en het werkt nu ook met twee div's.
+    Ik ben wel tegen het probleem aangelopen dat na het laden hij alles aan de rechterkant van de eerste div van links is een "border ziet"
+
+24-10-2012      5 min
+    Ik heb het probleem van vanochtend gefixt. blijkbaar werden de x/y cordinaten van de div als een string opgeslagen.
     
+ 26-10-2012   1uur

@@ -105,6 +105,11 @@ body{
     display:block;
     margin-bottom:-2px;
 }
+#contact{
+    position:absolute;
+    top:400px;
+    border-style:solid;
+}
 
 
 
