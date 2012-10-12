@@ -5,5 +5,5 @@
 
 var config = {
     'languages':'',
-    'contact':''
+    'contact':'',
 };

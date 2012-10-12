@@ -1,37 +1,50 @@
 Dit is de Log van mijn portfolio project.
 
-1-10-2012       3 uur
+1-9-2012       3 uur
     Ik heb gezorgd dat ik github kon kopellen aan cloud 9 en ben begonnen met hnet schrijven vande code van het testen.
 
-2-10-2012       3 uur
+2-9-2012       3 uur
     Ik heb de code zover veder gemaakt dat er nu divs worden aangemaakt als objecten en je kan ze cordinaten geven.
     Ik heb er voor gekozen de cordinaten van de save/load/preset op te slaan ineen javascript object omdat ik dit ook goed zag werken bij Muledump (een javascript aplicatie)
 
-4-10-2012       2 uur
+4-9-2012       2 uur
     Je kan nu de divs verslepen, opslaan en ophalen.
     De code is nu zo geschreven dat je een standart html maakt en hij vervolgens van de bestaande divs objecten maakt (je kan nog steeds een preset maken) al heb ik dit nog neit uitgebreid getest/gebruikt;
 
-6-10-2012       2 uur
+6-9-2012       2 uur
     Ik ben begonnen aan de lay-out van mijn website en heb de header en background gemaakt.
     Ik ben nu van plan een soort van aplicatie website te maken en zit er over na te denken mensen standart f11(fulscreen) te laten gebruiken voor de beste ervaring.
     Een vriendin van me zou me wel willen helpen met de laatste afronding in het uiterlijk zoals de images van de buttons mooi maken.
 
-7-10-2012       1 uur
+7-9-2012       1 uur
     Er is nu een side menu die uit de zijkant "slide" als je er op klikt hier komt de save/load/reset te staan. 
 
-13-10-2012      3 uur
+13-9-2012      3 uur
     de sleep code is zo aangepast dat er rekeing met de begin positie van de muis gehouden wordt. Ook heb ik borders aan het slepen gezet zodat je de divs neit uit het scherm krijgt.
     Ik heb de css tag overflow:hidden aan de html toegevoegd zodat je geen scrolbars meer ziet als je een div een beetje tegen de border van het scherm plakt. Ik weet nog niet of ik dit hou of er iets anders voor verzin
     Ik heb een klein begin gemaakt aan de reszise code. maar ik ben er nog neit uit of dat aan elke kant meot gebeuren of alleen rechts boven.
 
-19-10-2012      1 uur
+19-9-2012      1 uur
     ik heb besloten elke kant resizeble te maken maar ik ben nu het probleem tegegekomen dat de muis niet van plaatje verandert als je in de orginele div zit.
 
-24-10-2012      1 uur
-    Het probleem van 19-20 is opgelost en het werkt nu ook met twee div's.
+24-9-2012      1 uur
+    Het probleem van 19-9 is opgelost en het werkt nu ook met twee div's.
     Ik ben wel tegen het probleem aangelopen dat na het laden hij alles aan de rechterkant van de eerste div van links is een "border ziet"
 
-24-10-2012      5 min
+24-9-2012      5 min
     Ik heb het probleem van vanochtend gefixt. blijkbaar werden de x/y cordinaten van de div als een string opgeslagen.
     
- 26-10-2012   1uur
+26-9-2012      2.5 uur
+    Je kan nu de divs ook resizen. Ik heb ook wat kliene stukjes code verbeterd. 
+    ik ga vanaf nu de code wat verbeteren (meschien de event listeners in het div object zelf zetten)
+    en wat kliene functionalitieten toevoegen zoals het niet kunnen vergroten van het scherm door naarbeneden te resizen.
+
+5-10-2012       1 uur
+    Ik ben een bug tegengekomen in de mousetrace functie waarin alles onder een border als border werdt aangegeven en dit opgelost.
+    Je kan niet meer van border wissellen tijdens het resizen.
+    De body wordt nier meer groter/kliener ls je tegen de onderkant resized/sleept
+    ik zit er nu aan te denken om een footer toe te voegen zodat je geen "onzichtbare wall" meer hebt aan de onderkant
+
+12-10-2012      2.25 uur
+    Ik ben er achter gekomen dat ik geen rekening had gehouden met padding (aangezien width die niet mee neemt) en dat heb ik opgelost.
+    Ik heb er voor gezorgt dat er van een z-index gebruikt wordt voor de divs en die is ingesteld op het laats geklikte (dit wordt ook gesaved/load);

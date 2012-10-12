@@ -5,6 +5,9 @@ var mouseX;
 var mouseY;
 var mouseAtBorder = false;
 var border = 'none';
+var borderLock = false;
+var config = config;
+
 function init()
 {    
     console.log('--init--');
@@ -42,36 +45,44 @@ function mouseTrace(event)
         var target = divs[i];     
         var _x = target.x;
         var _y = target.y;
-        var _width = target.width;
-        var _height = target.height;
-        
+        var _width = target.width+target.padHorz;
+        var _height = target.height+target.padVert;
+
         if(mouseX>_x-1 && mouseX<_x+4 && mouseY>_y && mouseY<_y+_height)
         {
-            border = 'left';
-            mouseAtBorder = true;
+            //left
             $('body>*').css('cursor','e-resize');
             $('body').css('cursor','e-resize');
+            mouseAtBorder = true;
+            if(borderLock === true)return;
+            border = 'left';
         }
         if(mouseX>_x+_width-1 && mouseX<_x+_width+6 && mouseY>_y && mouseY<_y+_height)
-        {
-            border = 'right';
-            mouseAtBorder = true;
+        {      
+            //right
             $('body>*').css('cursor','e-resize');
             $('body').css('cursor','e-resize');
+            mouseAtBorder = true;
+            if(borderLock === true)return;
+            border = 'right';
         }
         if(mouseX>_x && mouseX<_x+_width && mouseY>_y-2 && mouseY<_y+2)
         {
+            //top
+            $('body>*').css('cursor','s-resize');
+            $('body').css('cursor','s-resize');
+            mouseAtBorder = true;
+            if(borderLock === true)return;
             border = 'top';
-            mouseAtBorder = true;
-            $('body>*').css('cursor','s-resize');
-            $('body').css('cursor','s-resize');           
         }
-        if(mouseX>_x && mouseX<_x+_width && mouseY>_y+_height-2 && mouseY<_y+height+2)
+        if(mouseX>_x && mouseX<_x+_width && mouseY>_y+_height-2 && mouseY<_y+_height+2)
         {
-            border = 'bottom';
-            mouseAtBorder = true;
+            //bottom
             $('body>*').css('cursor','s-resize');
-            $('body').css('cursor','s-resize');           
+            $('body').css('cursor','s-resize');   
+            mouseAtBorder = true;
+            if(borderLock === true)return;
+            border = 'bottom';
         }
     }   
 }
@@ -81,15 +92,35 @@ function mouseDown(event)
     
     var type = $(this).attr('id');
     var target = divs[type];   
+    console.log(divs);
+    if(target.z != 1000)
+    {
+        target.z = 1000+1;
+        for(var i in divs)
+        {
+            divs[i].z -= 1;
+            divs[i].update();
+        }
+    }    
+    console.log(target.z);
     
     if(mouseAtBorder===true)
     {
         console.log('   --rezise '+border+'--');   
         var xRight = target.x + target.width;
         var yBottom = target.y + target.height;
+        borderLock = true;
         $('html').bind('mousemove',function(event){
-
-            if(border=='left' || border=='right')
+            if(mouseY > height-10)
+            {
+                mouseY = height-10;
+            }
+            if(mouseY < 37)
+            {
+                mouseY = 37;   
+            }
+            
+            if(border =='left' || border=='right')
             {
                 $('body>*').css('cursor','e-resize');
                 $('body').css('cursor','e-resize');
@@ -98,7 +129,7 @@ function mouseDown(event)
                     target.x = mouseX; 
                     target.width = xRight - mouseX;   
                 }
-                if(border=='right') target.width = mouseX - target.x;
+                if(border=='right') target.width = mouseX - target.x - target.padHorz;
             }
             if(border=='top' || border=='bottom')
             {
@@ -110,12 +141,13 @@ function mouseDown(event)
                    target.y = mouseY;
                    target.height = yBottom - mouseY;
                 }
-                if(border=='bottom') target.height = mouseY - target.y;
+                if(border=='bottom') target.height = mouseY - target.y - target.padVert;
             } 
             target.update();
         });
         
         $('html').mouseup(function(event){
+            borderLock = false;
             $('body>*').css('cursor','auto');
             $('body').css('cursor','auto');
             $('html').unbind('mousemove'); 
@@ -123,11 +155,11 @@ function mouseDown(event)
     }
     else
     {          
-        
         var xOffSet = event.clientX-target.x;
         var yOffSet = event.clientY-target.y; 
         
         console.log('   --startMove--');
+        $('body>*').css('cursor','move');
         $('body').css('cursor','move');
         $('html').bind('mousemove',function(event){              
             target.x = event.pageX-xOffSet;
@@ -135,14 +167,15 @@ function mouseDown(event)
             
             if(target.y<37) target.y = 37;
             if(target.x<0) target.x = 0;
-            if(target.y>(height-target.height)) target.y = height-target.height;
-            if(target.x>(width-target.width)) target.x = width-target.width;
+            if(target.y>(height-target.height-10-target.padVert)) target.y = height-target.height-10-target.padVert;
+            if(target.x>(width-target.width-target.padHorz)) target.x = width-target.width-target.padHorz;
             
             target.update();
         });
         
         $('html').mouseup(function(event){
             $('body').css('cursor','auto');
+            $('body>*').css('cursor','auto');
             $('html').unbind('mousemove'); 
         });
     }
@@ -158,11 +191,12 @@ var div = function(type,cordinates)
         console.log(divs);
         return;
     }
-    
     this.dom = $('body').find('#'+type);
-    
     this.width = $(this.dom).width();
     this.height = $(this.dom).height();
+    this.padHorz = parseInt($(this.dom).css("padding-right")) + parseInt($(this.dom).css("padding-left"));
+    this.padVert = parseInt($(this.dom).css("padding-top")) + parseInt($(this.dom).css("padding-bottom"));
+    this.z='auto';
     
     if(cordinates==='')
     {
@@ -185,6 +219,7 @@ var div = function(type,cordinates)
         if(isNaN(Number(cords[1]))===false) this.y = Number(cords[1]);
         if(isNaN(Number(cords[2]))===false) this.width = Number(cords[2]);
         if(isNaN(Number(cords[3]))===false) this.height = Number(cords[3]);
+        if(isNaN(Number(cords[4]))===false) this.z = Number(cords[4]);
     }
     if($(this.dom).hasClass('movable')===false)
     {
@@ -200,8 +235,8 @@ var div = function(type,cordinates)
  
     this.update();
     
-    console.log(this.width);
-    console.log(this.height);
+    console.log("width: "+this.width);
+    console.log("height: "+this.height);
     
     console.log($('body').find('#'+type)[0]);
 };
@@ -212,17 +247,17 @@ div.prototype.update = function()
     $(this.dom).css('left',this.x);
     $(this.dom).css('width',this.width);
     $(this.dom).css('height',this.height);
+    $(this.dom).css('z-index',this.z);
 };
 
 var divs = {};
-
 function parseDivs(toParse)
 {
     console.log('-----toPare------');
     for(var type in toParse)
     {
         divs[type] = new div(type,toParse[type]);
-    }   
+    }    
 }
 function save(event)
 {   
@@ -231,7 +266,7 @@ function save(event)
     
     for(var i in divs)
     {
-        _save[i] = divs[i].x+','+divs[i].y+','+divs[i].width+','+divs[i].height;
+        _save[i] = divs[i].x+','+divs[i].y+','+divs[i].width+','+divs[i].height+','+divs[i].z;
     }
 
     localStorage.setItem('save', JSON.stringify(_save));
@@ -242,18 +277,6 @@ function load(event)
     var _load = JSON.parse(localStorage.getItem('save'));
     
     if(_load ===null) return;
-    
-//    divs = null;
- 
-//    for(var type in _load)
- //   {
- //       console.log(type)
-        
- //       var cord;
-//        cord = _load[type];
-//        console.log(type);
-//    }   
- 
  
  
     parseDivs(_load);
