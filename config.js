@@ -6,4 +6,5 @@
 var config = {
     'languages':'',
     'contact':'',
+    'projects':''
 };

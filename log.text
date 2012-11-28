@@ -48,3 +48,15 @@ Dit is de Log van mijn portfolio project.
 12-10-2012      2.25 uur
     Ik ben er achter gekomen dat ik geen rekening had gehouden met padding (aangezien width die niet mee neemt) en dat heb ik opgelost.
     Ik heb er voor gezorgt dat er van een z-index gebruikt wordt voor de divs en die is ingesteld op het laats geklikte (dit wordt ook gesaved/load);
+26-11-2012      1.5 uur
+    Ik heb een begin gemaakt aan de vergroot/verklein animatie die nu werkt door op de tekst mini te klikken. De x cordinate wordt nu nog altijd op 0 gezet maar de bedoeling is dat er een aparte plek komt voor de minis.
+    Op dit momnent wordt de titleMini wegehaald door alle <p> elementen die directe kinderen zijn van de div weg te halen. Hier moet ik iets beters op verzinnen.
+    Verder ga ik nog zorgen dat de grote en positie na het vergroten was hetzelfde als het orgineel blijft.
+
+
+
+
+
+
+
+

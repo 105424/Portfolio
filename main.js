@@ -20,15 +20,50 @@ function init()
     if (typeof config != 'undefined') parseDivs(config); // deze variable zit in config.js
     else console.log('config not found');
     
+    $('.mini').live('click', mini);
+    $('.titleMini').live('click', reverse);
     $('html').live('mousemove', mouseTrace);        // zorgt ervoor dat de muis op het juiste moment van sprite verandert.
     $('.movable').live('mousedown', mouseDown);     // zorgt voor het resize/verplaatsen van de div's
     $('#save').live('click', save);                 // de save functie die het object met de cordinaten gaat opslaan;
-    $('#load').live('click', load );                // de save functie die het object met de cordinaten gaat opslaan;       
+    $('#load').live('click', load );                // de save functie die het object met de cordinaten gaat opslaan;    
     
     sideMenu(); // de code van het zij menutje zoveel de animatie als de positionering (jammer genoeg kreeg ik dit niet in css voor elkaar);
     
     console.log(divs);
  //   load();
+}
+function reverse(event)
+{
+    var _target = divs[$(this).parent().attr("id")];
+    var _dom = _target.dom;   
+    $(_dom).children().show();
+    $(_dom).children('p').remove();
+    $(_dom).attr('class', 'movable')
+    $(_dom).animate({
+        height: '450px',
+        width:  '1000px'
+    }, 1000, function() {
+        _target.height = 450;
+        _target.width = 1000;
+    });
+}
+function mini(event)
+{
+    var _target = divs[$(this).parent().attr("id")];
+    var _dom = _target.dom;
+    console.log(_dom);
+    $(_dom).animate({
+        height: '20px',
+        width:  '100px',
+        left: '-='+_target.x
+    }, 1000, function() {
+        _target.height = 20;
+        _target.width = 100;
+        _target.x = 0;
+        $(_dom).children().hide();
+        $(_dom).append('<p class="titleMini">'+_target.titleMini+'</p>');
+        $(_dom).removeAttr('class');
+    });
 }
 function mouseTrace(event)
 {
@@ -113,10 +148,12 @@ function mouseDown(event)
         $('html').bind('mousemove',function(event){
             if(mouseY > height-10)
             {
+                console.log("mouseY: " +mouseY)
                 mouseY = height-10;
             }
             if(mouseY < 37)
             {
+                console.log("mouseY: " +mouseY)
                 mouseY = 37;   
             }
             
@@ -191,6 +228,7 @@ var div = function(type,cordinates)
         console.log(divs);
         return;
     }
+    this.titleMini = type;
     this.dom = $('body').find('#'+type);
     this.width = $(this.dom).width();
     this.height = $(this.dom).height();
@@ -230,14 +268,15 @@ var div = function(type,cordinates)
         $(this.dom).addClass('movable');
     }
     
+    $(this.dom).append('<span class="mini">mini</span>');
+    
     console.log('this.x:'+this.x);
     console.log('this.y:'+this.y);
  
     this.update();
     
     console.log("width: "+this.width);
-    console.log("height: "+this.height);
-    
+    console.log("height: "+this.height); 
     console.log($('body').find('#'+type)[0]);
 };
 div.prototype.update = function()
