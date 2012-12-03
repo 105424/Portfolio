@@ -12,6 +12,7 @@
     
 .movable{
     position:absolute;
+    overflow:hidden;
     color:white;
     border-color:black;
     background:#ccc url('img/bg02.gif') top left;

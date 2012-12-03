@@ -12,16 +12,22 @@ function init()
 {    
     console.log('--init--');
     
-    setInterval(function(){
+    width = $(window).width();
+    height = $(window).height(); 
+    
+    window.onresize=function()
+    {
+        console.log('resize')
         width = $(window).width();
-        height = $(window).height();            
-    },10);
+        height = $(window).height();
+        for(var i in divs){divs[i].update()}
+    };
     
     if (typeof config != 'undefined') parseDivs(config); // deze variable zit in config.js
     else console.log('config not found');
     
-    $('.mini').live('click', mini);
-    $('.titleMini').live('click', reverse);
+//    $('.mini').live('click', mini);
+//    $('.titleMini').live('click', reverse);
     $('html').live('mousemove', mouseTrace);        // zorgt ervoor dat de muis op het juiste moment van sprite verandert.
     $('.movable').live('mousedown', mouseDown);     // zorgt voor het resize/verplaatsen van de div's
     $('#save').live('click', save);                 // de save functie die het object met de cordinaten gaat opslaan;
@@ -43,8 +49,8 @@ function reverse(event)
         height: '450px',
         width:  '1000px'
     }, 1000, function() {
-        _target.height = 450;
-        _target.width = 1000;
+        _target.height = (height/100)*450;
+        _target.width = (width/100)*1000;
     });
 }
 function mini(event)
@@ -55,10 +61,10 @@ function mini(event)
     $(_dom).animate({
         height: '20px',
         width:  '100px',
-        left: '-='+_target.x
+        left: '-='+(width/100)*_target.x
     }, 1000, function() {
-        _target.height = 20;
-        _target.width = 100;
+        _target.height = (height/100)*20;
+        _target.width = (width/100)*100;
         _target.x = 0;
         $(_dom).children().hide();
         $(_dom).append('<p class="titleMini">'+_target.titleMini+'</p>');
@@ -78,10 +84,10 @@ function mouseTrace(event)
     for(var i in divs)
     {          
         var target = divs[i];     
-        var _x = target.x;
-        var _y = target.y;
-        var _width = target.width+target.padHorz;
-        var _height = target.height+target.padVert;
+        var _x = (width/100)*target.x;
+        var _y = (height/100)*target.y;
+        var _width = (width/100)*target.width+target.padHorz;
+        var _height = (height/100)*target.height+target.padVert;
 
         if(mouseX>_x-1 && mouseX<_x+4 && mouseY>_y && mouseY<_y+_height)
         {
@@ -127,7 +133,7 @@ function mouseDown(event)
     
     var type = $(this).attr('id');
     var target = divs[type];   
-    console.log(divs);
+    console.log('target: '+type);
     if(target.z != 1000)
     {
         target.z = 1000+1;
@@ -137,13 +143,13 @@ function mouseDown(event)
             divs[i].update();
         }
     }    
-    console.log(target.z);
+    console.log('Z: '+target.z);
     
     if(mouseAtBorder===true)
     {
         console.log('   --rezise '+border+'--');   
-        var xRight = target.x + target.width;
-        var yBottom = target.y + target.height;
+        var xRight = (width/100)*target.x + (width/100)*target.width;
+        var yBottom = (height/100)*target.y + (height/100)*target.height;
         borderLock = true;
         $('html').bind('mousemove',function(event){
             if(mouseY > height-10)
@@ -163,10 +169,10 @@ function mouseDown(event)
                 $('body').css('cursor','e-resize');
                 if(border=='left')
                 {
-                    target.x = mouseX; 
-                    target.width = xRight - mouseX;   
+                    target.x = 100/(width/mouseX); 
+                    target.width = 100/(width/(xRight - mouseX));   
                 }
-                if(border=='right') target.width = mouseX - target.x - target.padHorz;
+                if(border=='right') target.width = 100/(width/(mouseX - (width/100)*target.x - target.padHorz));
             }
             if(border=='top' || border=='bottom')
             {
@@ -175,10 +181,10 @@ function mouseDown(event)
                 
                 if(border=='top')
                 {
-                   target.y = mouseY;
-                   target.height = yBottom - mouseY;
+                   target.y = 100/(height/mouseY);
+                   target.height = 100/(height/(yBottom - mouseY));
                 }
-                if(border=='bottom') target.height = mouseY - target.y - target.padVert;
+                if(border=='bottom') target.height = 100/(height/(mouseY - (height/100)*target.y - target.padVert));
             } 
             target.update();
         });
@@ -192,20 +198,28 @@ function mouseDown(event)
     }
     else
     {          
-        var xOffSet = event.clientX-target.x;
-        var yOffSet = event.clientY-target.y; 
+        var xOffSet = event.clientX-((width/100)*target.x);  //cordinates of space between mousey and y of the div
+        var yOffSet = event.clientY-((height/100)*target.y); //cordinates of space between mousec and c of the div
         
         console.log('   --startMove--');
+        console.log('       target.x: '+target.x);
+        console.log('       target.y: '+target.y);
+        console.log('       event.x: '+event.clientX);
+        console.log('       event.y: '+event.clientY);
+        console.log('       ofset.x: '+xOffSet);
+        console.log('       offset.y: '+yOffSet); 
+        
         $('body>*').css('cursor','move');
         $('body').css('cursor','move');
-        $('html').bind('mousemove',function(event){              
-            target.x = event.pageX-xOffSet;
-            target.y = event.pageY-yOffSet;
+        $('html').bind('mousemove',function(event){        
             
-            if(target.y<37) target.y = 37;
+            target.x = 100/(width/(event.pageX-xOffSet));
+            target.y = 100/(height/(event.pageY-yOffSet));
+            
+            if((height/100)*target.y<37) target.y = 100/(height/37);
             if(target.x<0) target.x = 0;
-            if(target.y>(height-target.height-10-target.padVert)) target.y = height-target.height-10-target.padVert;
-            if(target.x>(width-target.width-target.padHorz)) target.x = width-target.width-target.padHorz;
+            if((height/100)*target.y>(height-(height/100)*target.height-10-target.padVert)) target.y = 100/(height/(height-(height/100)*target.height-10-target.padVert));
+            if((width/100)*target.x>(width-(width/100)*target.width-target.padHorz)) target.x = 100/(width/(width-(width/100)*target.width-target.padHorz));
             
             target.update();
         });
@@ -230,8 +244,9 @@ var div = function(type,cordinates)
     }
     this.titleMini = type;
     this.dom = $('body').find('#'+type);
-    this.width = $(this.dom).width();
-    this.height = $(this.dom).height();
+    console.log(width);
+    this.width = 100/(width/$(this.dom).width());
+    this.height = 100/(height/$(this.dom).height());
     this.padHorz = parseInt($(this.dom).css("padding-right")) + parseInt($(this.dom).css("padding-left"));
     this.padVert = parseInt($(this.dom).css("padding-top")) + parseInt($(this.dom).css("padding-bottom"));
     this.z='auto';
@@ -242,11 +257,12 @@ var div = function(type,cordinates)
         console.log('   off-top: '+$(this.dom).offset().top);
         console.log('   off-left: '+$(this.dom).offset().left);
         
-        this.x = $(this.dom).offset().left;
-        this.y = $(this.dom).offset().top;
+        
+        this.x = 100/(width/$(this.dom).offset().left);
+        this.y = 100/(height/$(this.dom).offset().top);
     }
     else
-    {
+    { ///wordt niet meer gebrukt als functionalitiet
         console.log('   cordinates defined');
         
         var cords = cordinates.split(',');
@@ -281,11 +297,11 @@ var div = function(type,cordinates)
 };
 div.prototype.update = function()
 {
-    console.log('----update----');
-    $(this.dom).css('top',this.y);
-    $(this.dom).css('left',this.x);
-    $(this.dom).css('width',this.width);
-    $(this.dom).css('height',this.height);
+    console.log('update()');
+    $(this.dom).css('top',(height/100)*this.y);
+    $(this.dom).css('left',(width/100)*this.x);
+    $(this.dom).css('width',(width/100)*this.width);
+    $(this.dom).css('height',(height/100)*this.height);
     $(this.dom).css('z-index',this.z);
 };
 
@@ -307,7 +323,7 @@ function save(event)
     {
         _save[i] = divs[i].x+','+divs[i].y+','+divs[i].width+','+divs[i].height+','+divs[i].z;
     }
-
+    console.log(_save);
     localStorage.setItem('save', JSON.stringify(_save));
 }
 function load(event)
