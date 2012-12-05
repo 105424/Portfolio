@@ -1,3 +1,4 @@
+$(document).ready(init);
 var width;
 var height;
 var mouseX;
@@ -5,7 +6,7 @@ var mouseY;
 var mouseAtBorder = false;
 var border = 'none';
 var borderLock = false;
-$(document).ready(init);
+var config = config;
 
 function init()
 {        
@@ -22,60 +23,52 @@ function init()
         for(var i in divs){divs[i].update()}
     };
     
-    parseDivs();
+    if (typeof config != 'undefined') parseDivs(config); // deze variable zit in config.js
+    else console.log('config not found');
     
 //    $('.mini').live('click', mini);
 //    $('.titleMini').live('click', reverse);
     $('html').live('mousemove', mouseTrace);        // zorgt ervoor dat de muis op het juiste moment van sprite verandert.
     $('.movable').live('mousedown', mouseDown);     // zorgt voor het resize/verplaatsen van de div's
-    $('#projectToggle').live('click', showProjects);
-//    $('#save').live('click', save);                 // de save functie die het object met de cordinaten gaat opslaan;
-//    $('#load').live('click', load );                // de save functie die het object met de cordinaten gaat opslaan;    
+    $('#save').live('click', save);                 // de save functie die het object met de cordinaten gaat opslaan;
+    $('#load').live('click', load );                // de save functie die het object met de cordinaten gaat opslaan;    
     
-//    sideMenu(); // de code van het zij menutje zoveel de animatie als de positionering (jammer genoeg kreeg ik dit niet in css voor elkaar);
+    sideMenu(); // de code van het zij menutje zoveel de animatie als de positionering (jammer genoeg kreeg ik dit niet in css voor elkaar);
     
     console.log(divs);
  //   load();
 }
-function showProjects(event)
+function reverse(event)
 {
-    console.log('----projectToggle---');
-    var startX = 100/(width/$('#projectToggle').offset().left);
-    var startY = 100/(height/$('#projectToggle').offset().top);
-    var pWidth = 100/(width/$('#projectToggle').width());
-    var pHeight = 100/(height/$('#projectToggle').height());
-    
-    startX += pWidth/2;
-    startY += pHeight/2;
-    
-    $('.project').each(function(){
-        var _target = divs[$(this).attr('id')];
-        
-        
-        var endX = Math.floor((Math.random()*(100-_target.width))+_target.width);
-        var endY = Math.floor((Math.random()*(100-_target.height))+_target.height);
-        
-        _target.x = startX;
-        _target.y = startY;
-        _target.width = 1;
-        _target.height = 1;
-        _target.update();
-        $(this).offset().left = startX;
-        $(this).offset().top = startY
-        
-        $(this).show();
-        
-        $(this).animate({
-            height: '250',
-            width:  '150',
-            left: (width/100)*endX,
-            top: (height/100)*endY
-        }, 1000, function() {
-            _target.x = endX;
-            _target.y = endY
-            _target.width = 100/(width/150);
-            _target.height = 100/(height/250);
-        });
+    var _target = divs[$(this).parent().attr("id")];
+    var _dom = _target.dom;   
+    $(_dom).children().show();
+    $(_dom).children('p').remove();
+    $(_dom).attr('class', 'movable')
+    $(_dom).animate({
+        height: '450px',
+        width:  '1000px'
+    }, 1000, function() {
+        _target.height = (height/100)*450;
+        _target.width = (width/100)*1000;
+    });
+}
+function mini(event)
+{
+    var _target = divs[$(this).parent().attr("id")];
+    var _dom = _target.dom;
+    console.log(_dom);
+    $(_dom).animate({
+        height: '20px',
+        width:  '100px',
+        left: '-='+(width/100)*_target.x
+    }, 1000, function() {
+        _target.height = (height/100)*20;
+        _target.width = (width/100)*100;
+        _target.x = 0;
+        $(_dom).children().hide();
+        $(_dom).append('<p class="titleMini">'+_target.titleMini+'</p>');
+        $(_dom).removeAttr('class');
     });
 }
 function mouseTrace(event)
@@ -247,9 +240,11 @@ var div = function(type,cordinates)
         console.log('   div does not exist');
         delete divs[type];
         console.log(divs);
-        return false;
+        return;
     }
+    this.titleMini = type;
     this.dom = $('body').find('#'+type);
+    console.log(width);
     this.width = 100/(width/$(this.dom).width());
     this.height = 100/(height/$(this.dom).height());
     this.padHorz = parseInt($(this.dom).css("padding-right")) + parseInt($(this.dom).css("padding-left"));
@@ -266,8 +261,8 @@ var div = function(type,cordinates)
         this.x = 100/(width/$(this.dom).offset().left);
         this.y = 100/(height/$(this.dom).offset().top);
     }
-  /*  else
-    { ///wordt niet meer gebrukt als functionalitiet maar laat ik staan als ik weer wil saven of iets in die trand
+    else
+    { ///wordt niet meer gebrukt als functionalitiet
         console.log('   cordinates defined');
         
         var cords = cordinates.split(',');
@@ -285,9 +280,11 @@ var div = function(type,cordinates)
         console.log('   re-place');
         
         $(this.dom).remove();
-        $('container').append(this.dom);
+        $('body').append(this.dom);
         $(this.dom).addClass('movable');
-    } */
+    }
+    
+    $(this.dom).append('<span class="mini">mini</span>');
     
     console.log('this.x:'+this.x);
     console.log('this.y:'+this.y);
@@ -309,17 +306,14 @@ div.prototype.update = function()
 };
 
 var divs = {};
-function parseDivs()
+function parseDivs(toParse)
 {
-    $(".movable").each(function(){
-        divs[$(this).attr('id')] = new div($(this).attr('id'),"");      
-    });
-    $(".project").each(function(){
-        $(this).hide();
-    });    
+    console.log('-----toPare------');
+    for(var type in toParse)
+    {
+        divs[type] = new div(type,toParse[type]);
+    }    
 }
-
-/*
 function save(event)
 {   
     console.log('---save----');
@@ -378,42 +372,9 @@ function sideMenu()
         $(dom).css('left', left);
     },10);
     
-} */
-
-/*
-function reverse(event)
-{
-    var _target = divs[$(this).parent().attr("id")];
-    var _dom = _target.dom;   
-    $(_dom).children().show();
-    $(_dom).children('p').remove();
-    $(_dom).attr('class', 'movable')
-    $(_dom).animate({
-        height: '450px',
-        width:  '1000px'
-    }, 1000, function() {
-        _target.height = (height/100)*450;
-        _target.width = (width/100)*1000;
-    });
 }
-function mini(event)
-{
-    var _target = divs[$(this).parent().attr("id")];
-    var _dom = _target.dom;
-    console.log(_dom);
-    $(_dom).animate({
-        height: '20px',
-        width:  '100px',
-        left: '-='+(width/100)*_target.x
-    }, 1000, function() {
-        _target.height = (height/100)*20;
-        _target.width = (width/100)*100;
-        _target.x = 0;
-        $(_dom).children().hide();
-        $(_dom).append('<p class="titleMini">'+_target.titleMini+'</p>');
-        $(_dom).removeAttr('class');
-    });
-} */
+
+
 
 
 

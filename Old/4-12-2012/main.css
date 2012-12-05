@@ -14,7 +14,6 @@
     position:absolute;
     overflow:hidden;
     color:white;
-    border-style:solid;
     border-color:black;
     background:#ccc url('img/bg02.gif') top left;
 }
@@ -101,10 +100,20 @@ body{
     margin-right:auto;
     background-color:#CCC;
 }
+#projects{
+    border-style:solid;
+    position:absolute;
+    overflow:hidden;
+    top:47px;
+    right:20px;
+    height:80%;
+    width:60%;
+}
 #languages{
     text-align:center;
     position:absolute;
     top:100px;
+    border-style:solid;
 }
 .list>span{
     display:block;
@@ -115,7 +124,13 @@ body{
     top:400px;
     border-style:solid;
 }
+
 .project{
+    display:inline;
+    float:left;
+    Border-left:dashed;
+    margin-left:5px;
+    margin-top:5px;
 }
 .project>h3{
     padding:auto;
@@ -125,9 +140,16 @@ body{
     height:150px;
     float:left;
 }
-.projectToggle{
-    float:right;   
+.titleMini{
+    position:absolute;
+    top:-14px;
 }
+.mini{
+    position:absolute;
+    right:5px;
+    top:5px;
+}
+
 
 
 

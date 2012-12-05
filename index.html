@@ -4,7 +4,6 @@
 		<title>portfolio</title>
 		<link rel="stylesheet" type="text/css" href="main.css"/>
         <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js'></script>
-        <script type='text/javascript' src='config.js'></script> 
         <script type='text/javascript' src='main.js'></script>
 	</head>
 		
@@ -16,17 +15,12 @@
                 <div id='logIn'></div>
                 <div id='toggleMove'></div>
             </span>
-        </div>
-        
-        <div id="sideMenu">
-            <div id='save'></div>
-            <div id='load'></div>
-            <div id="sideMenuToggle"> </div>
+            <span id="projectToggle">Projects</span>
         </div>
 
 	</div> 
     <div id="container">
-        <div id="languages">
+        <div id="languages" class="movable">
             <div class='top'>
                 <h2 class='title'>Languages</h2>
             </div>
@@ -39,21 +33,51 @@
                 <span>actionscript</span>
             </div>
         </div>
-        <div id='contact'>
+        <div id='contact' class="movable">
             <h2>Contact</h2>
             <p>Mail: Mark@thomassio.nl</p>
         </div>
 
         <div id="projects">            
-            <div class="project">
+            <div class="movable project" id="Spotify">
                 <h3 class="pHead">Spotify</h3>
                 <p class="pDescription">Project in Spotify</p>
             </div>
-            <div class="project">
+            <div class="movable project" id="Tera">
                 <h3 class="pHead">Tera</h3>
                 <span class="fakeImg"> </span>
                 <img src="http://thomassio.nl/mark/portfolio/config/imgScript.php?project=4" />
             </div>
+            <div class="movable project" id="Tera1">
+                <h3 class="pHead">Tera</h3>
+                <span class="fakeImg"> </span>
+                <img src="http://thomassio.nl/mark/portfolio/config/imgScript.php?project=4" />
+            </div>
+            <div class="movable project" id="Tera2">
+                <h3 class="pHead">Tera</h3>
+                <span class="fakeImg"> </span>
+                <img src="http://thomassio.nl/mark/portfolio/config/imgScript.php?project=4" />
+            </div>            
+            <div class="movable project" id="Galgje">
+                <h3 class="pHead">Galgje</h3>
+                <span class="fakeImg"> </span>
+                <img src="http://thomassio.nl/mark/portfolio/config/imgScript.php?project=2" />
+            </div>          
+            <div class="movable project" id="Galgje1">
+                <h3 class="pHead">Galgje</h3>
+                <span class="fakeImg"> </span>
+                <img src="http://thomassio.nl/mark/portfolio/config/imgScript.php?project=2" />
+            </div>     
+            <div class="movable project" id="Galgje2">
+                <h3 class="pHead">Galgje</h3>
+                <span class="fakeImg"> </span>
+                <img src="http://thomassio.nl/mark/portfolio/config/imgScript.php?project=2" />
+            </div>     
+            <div class="movable project" id="Galgje3">
+                <h3 class="pHead">Galgje</h3>
+                <span class="fakeImg"> </span>
+                <img src="http://thomassio.nl/mark/portfolio/config/imgScript.php?project=2" />
+            </div>                 
         </div>
 
         

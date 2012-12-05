@@ -1,0 +1,246 @@
+@font-face {
+    font-family: 'novecento';
+	font-weight:bold;
+	src: local('novecento'), local('novecento'), url('../fonts/novecentowide-bold-webfont.woff') format('woff');
+	}
+	
+@font-face {
+	font-family: 'novecento';
+	font-weight:normal;
+	src: local('novecento'), local('novecento'), url('../fonts/novecentowide-light-webfont.woff') format('woff');
+	}
+
+.movable{
+    position:absolute;
+}
+
+
+*{ /*dit zorgt er voor dat je niks kan selecteen*/
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+
+   /*
+     Introduced in IE 10.
+     See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+   */
+   -ms-user-select: none;
+   user-select: none;
+}
+
+
+
+
+
+body{
+	color:black;
+    background:#ddd url('img/bg02.gif') repeat top left;
+	margin:0px;
+    font-family: 'novecento' , Helvetica, Calibri, sans-serif;
+	font-weight:normal;
+    color:#444;
+}
+h1,h2,h3,h4{
+    color:black;
+    font-weight:bold;
+}
+body > *{
+    background: #EEE url('img/bg01.gif') repeat top left;
+}
+
+
+#menu{
+	border-style:groove;
+	border-color:#aaa;
+	width:120px;
+	height:300px;
+	text-align:center;
+}
+#menu>ul{
+	list-style-type: none;
+	text-align:left;
+}
+a{
+	text-align:left;
+}
+#submenu{
+	border-style:groove;
+	border-color:#aaa;
+	position:absolute;
+	left:131px;
+	top:185px;
+	height:300px;
+	width:120px;
+	text-align:center;
+}
+#content{
+	border-style:groove;
+	border-color:#aaa;
+	position:absolute;
+	top: 145px;
+	left: 120px;
+	width:850px;
+	text-align:center;
+	padding-left:8px;
+}
+#projectImg{
+	min-height:200px;
+	min-width:200px;
+	max-height:400px;
+	max-width:300px;
+}
+#header{
+	padding-left:30px;
+	border-style:groove;
+	border-color:#aaa;
+	position:absolute;
+	left:140px;
+	height:156px;
+	width:690px;
+}
+#logIn{
+	position:absolute;
+	right:0px;
+	top:0px;
+	text-align:right;
+}
+#subHeader{
+    background:#ddd url('bg01.gif') repeat top left;
+	padding-left:37px;
+	border-style:groove;
+	border-color:#aaa;
+	border-top-style:solid;
+	border-top-color:#ccc;
+	position:absolute;
+	left:130px;
+	top:156px;
+	width:550px;
+	height:153px;
+}
+#volgende{
+	position:absolute;
+	right:4px;
+	top:4px;
+}
+#vorige {
+	position:absolute;
+	left:4px;
+	top:4x;
+}
+#comments{
+	border-style:groove;
+	border-color:#aaa;
+	float:bottom;
+	width:400px;
+	margin:auto;
+	margin-bottom:10px;
+	overflow:hidden;
+}
+#commentPost{
+	margin-top:20px;
+	float:right;
+	float:top;
+}
+#sideInfo{
+	border-style:groove;
+	border-color:#aaa;
+	border-left-style:solid;
+	border-left-color:#aaa;
+	position:fixed;
+	top:370px;
+	left:1115px;
+	height:300px;
+	width:200px;
+}
+#projectInfo{
+	border-style:groove;
+	border-color:#aaa;
+	float:left;
+	position:absolute;
+	top:70px;
+	left:-3px;
+	width:200px;
+}
+#socialMedia{
+	position:absolute;
+	top:322px;
+	border-style:groove;
+	border-color:#aaa;
+	width:103px;
+	height:280px;
+	padding-top:20px;
+}
+#socialMedia>h3{
+	position:absolute;
+	bottom:55px;
+}
+#spreukVanDeDag{
+    background:#ddd url('bg01.gif') repeat top left;
+	position:absolute;
+	top:183px;
+	left:103px;
+	width:128px;
+	height:114px;
+	border-style:groove;
+	border-color:#aaa;
+	border-left-style:solid;
+	border-left-color:#ccc;
+}
+
+/* COMMENTS */
+#commentsContent{
+	border-style:groove;
+	border-color:#aaa;
+	position:absolute;
+	top: 145px;
+	left: 120px;
+	width:850px;
+	text-align:left;
+	padding-left:8px;
+}
+#input{
+	width:300px;
+	margin:auto;
+}
+#naam{
+	position:relative;
+	right:-54px;
+	top:-5px;
+}
+#naam2{
+	position:relative;
+	top:35px;
+	right:50px;
+	font-size:20px;
+}
+#commentEdit{
+	position:absolute;
+	top:0px;
+	right:0px;
+	padding:2px;
+}
+#proCommentEdit{
+	float:left;
+}
+
+/* Info Pagina */
+#infoContent{
+	border-style:groove;
+	border-color:#aaa;
+	position:absolute;
+	top: 145px;
+	left: 120px;
+	width:850px;
+	text-align:center;
+	padding-left:8px;
+}
+/* project Edit */
+#kopEdit{
+	position:absolute;
+	right:10px;
+	top:20px;
+}
+#introEdit{
+	position:relative;
+	top:-10px;
+}
